@@ -1,7 +1,6 @@
 <?php
 use GuzzleHttp\ClientInterface;
 use Illuminate\Http\Request;
-use GuzzleHttp\Exception\RequestException;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -33,35 +32,22 @@ Route::get('test', function () {
 //instagram urls.
 Route::get('/instagram', function(){
 
-    $callback_url = "http://realgram.dev/callback";
+    $client = new GuzzleHttp\client();
+    $client->POST('https://api.instagram.com/v1/subscriptions/',[
+            'client_id'=> getenv('ClientID'),
+            'client_secret'=>getenv('ClientSecret'),
+            'object'=>'tags',
+            'aspect'=>'media',
+            'callback_url'=>'http://real.picblocks.com/callback',
+            'verify_token'=>'nofilter'
 
-        $params = array(
-            'client_id' => getenv('ClientID'),
-            'client_secret' => getenv('ClientSecret'),
-            'aspect' => "media",
-            'object' => "tag",
-            'object_id' => "nofilter",
-            'callback_url' => $callback_url
-        );
 
-        $defaults = array(
-            CURLOPT_URL => 'https://api.instagram.com/v1/subscriptions/',
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $params,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array('Accept: application/json')
-        );
-        $ch = curl_init();
-        curl_setopt_array($ch, $defaults);
-        $jsonData = curl_exec($ch);
-        curl_close($ch);
-        var_dump($jsonData);
+        ]);
 
 });
 
 Route::get('/callback', function(Request $Request){
- exit($_GET['hub_challenge']);
+ return $Request->query('hub_challenge');
 });
 
 Route::post('/callback', function(){
