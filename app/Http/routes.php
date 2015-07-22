@@ -32,14 +32,15 @@ Route::get('test', function () {
 //instagram urls.
 Route::get('/instagram', function(){
 
-    $client = new GuzzleHttp\client();
+    $client = new GuzzleHttp\Client();
+
     $client->POST('https://api.instagram.com/v1/subscriptions/',[
             'client_id'=> getenv('ClientID'),
             'client_secret'=>getenv('ClientSecret'),
-            'object'=>'tags',
+            'object'=>'tag',
             'aspect'=>'media',
             'callback_url'=>'http://real.picblocks.com/callback',
-            'verify_token'=>'nofilter'
+            'object_id'=>'nofilter'
 
 
         ]);
