@@ -11,7 +11,7 @@
         var socket = io('http://realgram.dev:3000');
         socket.on("test-channel:App\\Events\\EventName", function(message){
             // increase the power everytime we load test route
-            $('#power').text(parseInt($('#power').text()) + parseInt(message.data.power));
+            $('#power').text(parseInt(message.data.power));
         });
     </script>
 @stop

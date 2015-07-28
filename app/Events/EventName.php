@@ -6,6 +6,7 @@ use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
+
 class EventName extends Event implements ShouldBroadcast
 {
     use SerializesModels;
@@ -16,11 +17,14 @@ class EventName extends Event implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
+
         $this->data = array(
-            'power'=>'10'
+            'instagram'=>$data->images->standard_resolution->url
         );
+
+
     }
 
     /**

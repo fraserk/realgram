@@ -11,19 +11,25 @@ use Illuminate\Http\Request;
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function() {
+Route::get('/', function(){
+    return View('home');
+});
+Route::get('/getimage', function() {
     // this doesn't do anything other than to
     // tell you to go to /fire
     $client = new GuzzleHttp\Client();
-    $data = $client->get('https://api.instagram.com/v1/tags/NYC/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010&max_id=19162200');
-    dd($data);
+    $response = $client->get('https://api.instagram.com/v1/tags/NYC/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010&max_id=19261720');
+    $data = json_decode($response->getBody()->getContents());
+    dd($data->data['0']->images->standard_resolution->url);
+
+
 });
 
 Route::get('fire', function () {
     // this fires the event
-    event(new App\Events\EventName());
-    return "event fired";
+    $data = 'my data';
+    event(new App\Events\EventName($data));
+    return $data;
 });
 
 Route::get('test', function () {
@@ -40,7 +46,7 @@ Route::get('/instagram', function(){
         'aspect' => "media",
         'object' => "tag",
         'object_id' => "nofilter",
-        'callback_url' => 'http://real.picblocks.com/callback'
+        'callback_url' => 'http://realgram.dev/callback'
     );
 
     $defaults = array(
@@ -64,5 +70,20 @@ Route::get('/callback', function(Request $Request){
 });
 
 Route::post('/callback', function(Request $Request){
+ $requestData = $Request->all();
+ $object_id = $requestData['object_id'];
+ $id        = $requestData['id'];
 
+ $client = new GuzzleHttp\Client();
+ $response = $client->get('https://api.instagram.com/v1/tags/'.$object_id .'/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010&max_id=' .$id);
+
+ //dd($data);
+ //dd($data->data['0']->images->standard_resolution->url);
+
+ $instadata = json_decode($response->getBody()->getContents());
+ //dd($data);
+ //dd($instadata ->data['0']->images);
+ foreach ($instadata->data as $data ) {
+    event(new App\Events\EventName($data));
+ }
 });
