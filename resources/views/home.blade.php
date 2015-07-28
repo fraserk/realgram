@@ -4,7 +4,7 @@
             <h1>Images </h1>
             <ul>
                 <li v-repeat="t : instagrams">
-                    <img src="" alt="" /> 
+                    <img src=@{{t.instagram}} alt="" /> 
 
                 </li>
             </ul>
