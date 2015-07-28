@@ -46,7 +46,7 @@ Route::get('/instagram', function(){
         'aspect' => "media",
         'object' => "tag",
         'object_id' => "nofilter",
-        'callback_url' => 'http://realgram.dev/callback'
+        'callback_url' => 'http://real.picblocks.com/callback'
     );
 
     $defaults = array(
