@@ -70,9 +70,9 @@ Route::get('/callback', function(Request $Request){
 });
 
 Route::post('/callback', function(Request $Request){
- $requestData = $Request->get('data');
- $object_id = $requestData['object_id'];
- $id        = $requestData['id'];
+ // $requestData = $Request->get('data');
+ // $object_id = $requestData['object_id'];
+ // $id        = $requestData['id'];
  $client = new GuzzleHttp\Client();
  $response = $client->get('https://api.instagram.com/v1/tags/nofilter/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010&max_id=19266176');
 
