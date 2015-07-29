@@ -18,8 +18,9 @@ Route::get('/getimage', function() {
     // this doesn't do anything other than to
     // tell you to go to /fire
     $client = new GuzzleHttp\Client();
-    $response = $client->get('https://api.instagram.com/v1/tags/NYC/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010&max_id=19261720');
+    $response = $client->get('https://api.instagram.com/v1/tags/NYC/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
     $data = json_decode($response->getBody()->getContents());
+    dd($data);
     dd($data->data['0']->images->standard_resolution->url);
 
 
@@ -45,7 +46,7 @@ Route::get('/instagram', function(){
         'client_secret' => getenv('ClientSecret'),
         'aspect' => "media",
         'object' => "tag",
-        'object_id' => "nofilter",
+        'object_id' => "nyc",
         'callback_url' => 'http://real.picblocks.com/callback'
     );
 
@@ -74,7 +75,7 @@ Route::post('/callback', function(Request $Request){
  $object_id = $requestData['object_id'];
  $id        = $requestData['id'];
  $client = new GuzzleHttp\Client();
- $response = $client->get('https://api.instagram.com/v1/tags/nofilter/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
+ $response = $client->get('https://api.instagram.com/v1/tags/nyc/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
 
  //dd($data);
  //dd($data->data['0']->images->standard_resolution->url);
