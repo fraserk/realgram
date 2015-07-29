@@ -74,19 +74,18 @@ Route::get('/callback', function(Request $Request){
 Route::post('/callback', function(Request $Request){
  $requestData = $Request->get('data');
 
-
  $client = new GuzzleHttp\Client();
-foreach ($requestData as $k) {
+ foreach ($requestData as $k) {
     $object_id = $k['object_id'];
     $id        = $k['id'];
     $response = $client->get('https://api.instagram.com/v1/tags/'.$object_id .'/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
-
+     $instadata = json_decode($response->getBody()->getContents());
 }
 
  //dd($data);
  //dd($data->data['0']->images->standard_resolution->url);
 
- $instadata = json_decode($response->getBody()->getContents());
+
  //dd($data);
  //dd($instadata ->data['0']->images);
  foreach ($instadata->data as $data ) {
