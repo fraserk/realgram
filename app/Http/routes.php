@@ -45,7 +45,7 @@ Route::get('/instagram', function(){
         'client_secret' => getenv('ClientSecret'),
         'aspect' => "media",
         'object' => "tag",
-        'object_id' => "nyc",
+        'object_id' => "thathattho",
         'callback_url' => 'http://real.picblocks.com/callback'
     );
 
