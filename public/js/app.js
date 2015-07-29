@@ -2,7 +2,7 @@ new Vue ({
     el: '#instagram',
 
     data: {
-        instagrams: ['kim']
+        instagrams: []
     },
     ready: function() {
 
