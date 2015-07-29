@@ -1,6 +1,7 @@
 <?php
 use GuzzleHttp\ClientInterface;
 use Illuminate\Http\Request;
+use Log;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -74,8 +75,12 @@ Route::post('/callback', function(Request $Request){
  $requestData = $Request->get('data');
  $object_id = $requestData['object_id'];
  $id        = $requestData['id'];
+
  $client = new GuzzleHttp\Client();
- $response = $client->get('https://api.instagram.com/v1/tags/nyc/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
+foreach ($requestData as $k) {
+    $response = $client->get('https://api.instagram.com/v1/tags/'.$k['object_id'] .'/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
+
+}
 
  //dd($data);
  //dd($data->data['0']->images->standard_resolution->url);
