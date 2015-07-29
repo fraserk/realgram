@@ -27,9 +27,9 @@ Route::get('/getimage', function() {
 
 Route::get('fire', function () {
     // this fires the event
-    $data = 'my data';
+    $data = '10';
     event(new App\Events\EventName($data));
-    return $data;
+    //return $data;
 });
 
 Route::get('test', function () {
@@ -82,7 +82,7 @@ Route::post('/callback', function(Request $Request){
 
  $instadata = json_decode($response->getBody()->getContents());
  //dd($data);
- dd($instadata ->data['0']->images);
+ //dd($instadata ->data['0']->images);
  foreach ($instadata->data as $data ) {
     event(new App\Events\EventName($data));
  }
