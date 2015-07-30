@@ -72,7 +72,7 @@ Route::get('/callback', function(Request $Request){
 });
 
 Route::post('/callback', function(Request $Request){
- $requestData = $Request->get('data');
+ $requestData = $Request->all();
 
  $client = new GuzzleHttp\Client();
  foreach ($requestData as $k) {
