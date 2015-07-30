@@ -1,7 +1,7 @@
 <?php
 use GuzzleHttp\ClientInterface;
 use Illuminate\Http\Request;
-use Log;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
