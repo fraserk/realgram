@@ -73,11 +73,11 @@ Route::get('/callback', function(Request $Request){
 });
 
 Route::post('/callback', function(Request $Request){
- $requestData = $Request->get('data');
+ $requestData = $Request->all();
  log::info($requestData);
-// dd($requestData);
+ //dd($requestData);
  $client = new GuzzleHttp\Client();
- foreach ($requestData as $k) {
+ foreach ($requestData['data'] as $k) {
 
     $object_id = $k['object_id'];
     $id        = $k['id'];
