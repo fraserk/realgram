@@ -82,9 +82,6 @@ Route::post('/callback', function(Request $Request){
     $id        = $k['id'];
     $response = $client->get('https://api.instagram.com/v1/tags/brooklyn/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
     $instadata = json_decode($response->getBody()->getContents());
-
- }
-
     $returndata = collect($instadata->data);
 
      foreach ($returndata as $data) {
@@ -92,6 +89,9 @@ Route::post('/callback', function(Request $Request){
           event(new App\Events\EventName($data));
 
      }
+
+ }
+
 
 
 
