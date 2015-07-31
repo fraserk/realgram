@@ -77,7 +77,7 @@ Route::post('/callback', function(Request $Request){
  log::info($requestData);
  //dd($requestData);
  $client = new GuzzleHttp\Client();
- foreach ($requestData['data'] as $k) {
+ foreach ($requestData->data as $k) {
 
     $object_id = $k['object_id'];
     $id        = $k['id'];
