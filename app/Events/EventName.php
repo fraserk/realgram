@@ -21,7 +21,9 @@ class EventName extends Event implements ShouldBroadcast
     {
 
         $this->data = array(
-            'instagram'=>$data->images->standard_resolution->url
+            'instagram'=>$data->images->standard_resolution->url,
+            'tag'=> $data->tags,
+            'id'=> $data->id
             //'power'=> '10'
         );
 
