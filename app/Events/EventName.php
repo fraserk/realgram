@@ -25,7 +25,7 @@ class EventName extends Event implements ShouldBroadcast
             'tag'=> $data->tags
             //'power'=> '10'
         );
-
+        
 
     }
 

@@ -1,6 +1,7 @@
 <?php
 use GuzzleHttp\ClientInterface;
 use Illuminate\Http\Request;
+use Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,7 @@ Route::get('/callback', function(Request $Request){
 
 Route::post('/callback', function(Request $Request){
  $requestData = $Request->get('data');
+ log::info($requestData);
 // dd($requestData);
  $client = new GuzzleHttp\Client();
  foreach ($requestData as $k) {
