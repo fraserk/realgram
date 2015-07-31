@@ -83,7 +83,7 @@ Route::post('/callback', function(Request $Request){
     $instadata = json_decode($response->getBody()->getContents());
 
  }
- dd($instadata);
+
     $returndata = $instadata->data;
      foreach ($returndata as $data) {
 
