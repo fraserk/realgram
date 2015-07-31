@@ -77,7 +77,7 @@ Route::post('/callback', function(Request $Request){
  $collect =  collect($requestData);
 
  $client = new GuzzleHttp\Client();
- foreach ($requestData as $k) {
+ foreach ($collect as $k) {
     $object_id = $k['object_id'];
     $id        = $k['id'];
     $response = $client->get('https://api.instagram.com/v1/tags/brooklyn/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
