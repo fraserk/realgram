@@ -81,10 +81,9 @@ Route::post('/callback', function(Request $Request){
     $object_id = $k['object_id'];
     $id        = $k['id'];
     $response = $client->get('https://api.instagram.com/v1/tags/nofilter/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
-    $instadata = json_decode($response->getBody()->getContents());
-
 
      }
+     $instadata = json_decode($response->getBody()->getContents());
      $returndata = collect($instadata->data);
      foreach ($returndata as $data) {
 
@@ -92,10 +91,6 @@ Route::post('/callback', function(Request $Request){
          }
  //dd($data);
  //dd($data->data['0']->images->standard_resolution->url);
-
-
- //dd($data);
+//dd($data);
  //dd($instadata ->data['0']->images);
-
-
 });
