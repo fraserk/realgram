@@ -48,7 +48,7 @@ Route::get('/instagram', function(){
         'client_secret' => getenv('ClientSecret'),
         'aspect' => "media",
         'object' => "tag",
-        'object_id' => "brooklyn",
+        'object_id' => "nofilter",
         'callback_url' => 'http://real.picblocks.com/callback'
     );
 
@@ -80,7 +80,7 @@ Route::post('/callback', function(Request $Request){
  foreach ($collect as $k) {
     $object_id = $k['object_id'];
     $id        = $k['id'];
-    $response = $client->get('https://api.instagram.com/v1/tags/brooklyn/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
+    $response = $client->get('https://api.instagram.com/v1/tags/nofilter/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
     $instadata = json_decode($response->getBody()->getContents());
     $returndata = collect($instadata->data);
     foreach ($returndata as $data) {
