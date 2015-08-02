@@ -1,6 +1,7 @@
 <?php
 use GuzzleHttp\ClientInterface;
 use Illuminate\Http\Request;
+use MetzWeb\Instagram\Instagram;
 
 
 /*
@@ -19,11 +20,18 @@ Route::get('/', function(){
 Route::get('/getimage', function() {
     // this doesn't do anything other than to
     // tell you to go to /fire
-    $client = new GuzzleHttp\Client();
-    $response = $client->get('https://api.instagram.com/v1/tags/NYC/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
-    $data = json_decode($response->getBody()->getContents());
-    dd($data);
-    dd($data->data['0']->images->standard_resolution->url);
+
+    $instagram = new Instagram(array(
+    'apiKey'      => getenv('ClientID'),
+    'apiSecret'   => getenv('ClientSecret'),
+    'apiCallback' => 'http://real.picblocks.com/callback'
+        ));
+
+   $data =  $instagram->getTagMedia('Brooklyn','30');
+   foreach ($data->data as $key ) {
+        return $key->images->standard_resolution->url;
+   }
+
 
 
 });
@@ -73,22 +81,21 @@ Route::get('/callback', function(Request $Request){
 });
 
 Route::post('/callback', function(Request $Request){
- $requestData = $Request->get('data');
- $collect =  collect($requestData);
 
- $client = new GuzzleHttp\Client();
- foreach ($collect as $k) {
-    $object_id = $k['object_id'];
-    $id        = $k['id'];
-    $response = $client->get('https://api.instagram.com/v1/tags/nofilter/media/recent?client_id=ba86e397e3e7471a9909aaf1bdb93010');
-    $instadata = json_decode($response->getBody()->getContents());
-    $returndata = $instadata->data;
-    foreach ($returndata as $data) {
 
-         event(new App\Events\EventName($data));
+ $instagram = new Instagram(array(
+ 'apiKey'      => getenv('ClientID'),
+ 'apiSecret'   => getenv('ClientSecret'),
+ 'apiCallback' => 'http://real.picblocks.com/callback'
+     ));
+     $requestData = $Request->get('data');
+     $collect =  collect($requestData);
 
-        }
-     }
+     $mydata =  $instagram->getTagMedia('Brooklyn','30');
+     foreach ($mydata->data as $data ) {
+          event(new App\Events\EventName($data));
+
+}
 
  //dd($data);
  //dd($data->data['0']->images->standard_resolution->url);
