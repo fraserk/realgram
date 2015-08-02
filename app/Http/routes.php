@@ -92,10 +92,11 @@ Route::post('/callback', function(Request $Request){
      $collect =  collect($requestData);
 
      $mydata =  $instagram->getTagMedia('Brooklyn','30');
-     $data = $mydata->data;
-
+     
+     foreach ($mydata->data as $data ) {
           event(new App\Events\EventName($data));
 
+}
 
  //dd($data);
  //dd($data->data['0']->images->standard_resolution->url);
