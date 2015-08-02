@@ -91,7 +91,7 @@ Route::post('/callback', function(Request $Request){
      $requestData = $Request->get('data');
      $collect =  collect($requestData);
 
-     $mydata =  $instagram->getTagMedia('Brooklyn','30');
+     $mydata =  $instagram->getTagMedia('Brooklyn','1');
      foreach($mydata->data as $data ) {
           event(new App\Events\EventName($data));
 
