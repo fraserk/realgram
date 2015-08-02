@@ -84,7 +84,6 @@ Route::post('/callback', function(Request $Request){
     $instadata = json_decode($response->getBody()->getContents());
     $returndata = collect($instadata->data);
     foreach ($returndata as $data) {
-        dd($instadata);
          event(new App\Events\EventName($data));
         }
      }
