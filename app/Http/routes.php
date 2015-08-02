@@ -1,7 +1,7 @@
 <?php
 use GuzzleHttp\ClientInterface;
 use Illuminate\Http\Request;
-
+use Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +84,9 @@ Route::post('/callback', function(Request $Request){
     $instadata = json_decode($response->getBody()->getContents());
     $returndata = collect($instadata->data);
     foreach ($returndata as $data) {
+         Log::info($returndata);
          event(new App\Events\EventName($data));
+
         }
      }
 
